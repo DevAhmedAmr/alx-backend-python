@@ -24,5 +24,4 @@ if "__main__" == __name__:
         async for i in async_generator():
             result.append(i)
         print(result)
-
-asyncio.run(print_yielded_values())
+# asyncio.run(print_yielded_values())
