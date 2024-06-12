@@ -10,9 +10,3 @@ async def async_comprehension():
 
     """
     return [num async for num in async_generator()]
-
-
-async def main():
-    print(await async_comprehension())
-
-asyncio.run(main())
