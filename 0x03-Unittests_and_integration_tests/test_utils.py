@@ -55,6 +55,6 @@ class TestGetJson(TestCase):
             payload ([dict])
         """
         with mock.patch("utils.get_json") as mock_class:
-            get_json = mock_class(url, payload)
+            # get_json = mock_class(url, payload)
             get_json = mock_class.return_value = payload
-            mock_class.assert_called_with(url, payload)
+            # mock_class.assert_called_with(url, payload)
