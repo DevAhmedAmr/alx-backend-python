@@ -25,3 +25,7 @@ class TestAccessNestedMap(TestCase):
             result ([type]): expected result
         """
         self.assertAlmostEqual(result, access_nested_map(dictionary, path,))
+
+    @parameterized.expand([({}, ("a",))])
+    def test_access_nested_map_exception(self, dictionary, path):
+        self.assertRaises(KeyError, access_nested_map, dictionary, path,)
