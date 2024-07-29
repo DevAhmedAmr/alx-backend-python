@@ -26,7 +26,8 @@ class TestAccessNestedMap(TestCase):
         """
         self.assertAlmostEqual(result, access_nested_map(dictionary, path,))
 
-    @parameterized.expand([({}, ("a",))])
+    @parameterized.expand([({}, ("a",)),
+                           (({"a": 1}, ("a", "b")))])
     def test_access_nested_map_exception(
             self, dictionary: dict, path: list) -> None:
         """Raises an exception if the key is not a nested_nested_map attribute .
