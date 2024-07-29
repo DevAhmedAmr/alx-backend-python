@@ -61,17 +61,13 @@ class TestGetJson(TestCase):
 
 
 class TestMemoize(TestCase):
-    """Memoize test class
-    """
+    ''' memoize unittest '''
 
     def test_memoize(self):
-        """Test memoize method to ensure that when a_property method
-         called twice is correctly tested by calling a_method once
-        """
+        ''' memoize test '''
 
         class TestClass:
-            """wrapper class for memoize method
-            """
+            ''' self descriptive'''
 
             def a_method(self):
                 return 42
@@ -80,8 +76,8 @@ class TestMemoize(TestCase):
             def a_property(self):
                 return self.a_method()
 
-        with mock.patch.object(TestClass, 'a_method') as _mock:
-            test_class = TestClass()
-            test_class.a_property()
-            test_class.a_property()
-            _mock.assert_called_once()
+        with mock.patch.object(TestClass, 'a_method') as mocked:
+            spec = TestClass()
+            spec.a_property
+            spec.a_property
+            mocked.asset_called_once()
