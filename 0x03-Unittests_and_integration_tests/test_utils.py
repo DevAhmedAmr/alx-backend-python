@@ -11,7 +11,7 @@ class TestAccessNestedMap(TestCase):
     A test that accesses the nested dicts contained in a nested dict .
     """
     @parameterized.expand([({"a": 1}, ("a",), 1),
-                           ({"a": {"b": {"c": 1}}}, ["a", "b", "c"], 91),
+                           ({"a": {"b": {"c": 1}}}, ["a", "b", "c"], 1),
                            ({"a": {"b": 2}}, ("a", "b"), 2)
                            ]
                           )
