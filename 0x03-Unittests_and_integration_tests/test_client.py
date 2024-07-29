@@ -39,3 +39,6 @@ class TestGithubOrgClient(unittest.TestCase):
 
             )
             public_repos_url.assert_called()
+
+    def test_public_repos(self):
+        GithubOrgClient("google").public_repos()
