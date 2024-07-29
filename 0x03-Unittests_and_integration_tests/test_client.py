@@ -26,3 +26,15 @@ class TestGithubOrgClient(unittest.TestCase):
 
             GithubOrgClient(org).org()
             GithubOrgClient_org.assert_called_once()
+
+    @parameterized.expand([("google",), ("abc",)])
+    def test_public_repos_url(self, payload):
+        with patch.object(GithubOrgClient, "_public_repos_url") as public_repos_url:
+            public_repos_url.return_value = f"https://api.github.com/orgs/{payload}"\
+                ""
+
+            self.assertEqual(
+                f"https://api.github.com/orgs/{payload}",
+                GithubOrgClient(payload)._public_repos_url()
+
+            )
