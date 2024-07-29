@@ -6,7 +6,7 @@ from parameterized import parameterized, parameterized_class
 parameterized.expand
 from utils import get_json
 import unittest.mock as mock
-import utils
+from utils import memoize
 
 
 class TestAccessNestedMap(TestCase):
@@ -57,21 +57,32 @@ class TestGetJson(TestCase):
         with mock.patch("utils.get_json") as mock_class:
             get_json = mock_class.return_value = payload
 
-
-def a_method():
-    return 42
+        # Define the TestClass inside the test method
 
 
-@utils.memoize
-def a_property():
-    return a_method()
+class TestClass:
+    """wrapper class for memoize method
+    """
+
+    def a_method(self):
+        return 42
+
+    @memoize
+    def a_property(self):
+        return self.a_method()
 
 
 class TestMemoize(TestCase):
     """
-    Memoize a testCase .
+    Test memoization of property access.
     """
 
     def test_memoize(self):
-        with mock.patch("a_method") as mock_class:
-            pass
+
+        # Create an instance of TestClass
+        with mock.patch.object(TestClass, "a_method") as a_method:
+
+            test_class = TestClass()
+            test_class.a_property()
+            test_class.a_property()
+            a_method.assert_called_once()
