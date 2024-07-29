@@ -56,12 +56,12 @@ class TestGithubOrgClient(unittest.TestCase):
             public_repos_url.assert_called()
             get_json.assert_called_once()
 
-        def test_has_license(self, repo: Dict, key: str,
-                             expected: bool) -> None:
-            """Tests the `has_license` method."""
-            gh_org_client = GithubOrgClient("google")
-            client_has_licence = gh_org_client.has_license(repo, key)
-            self.assertEqual(client_has_licence, expected)
+    def test_has_license(self, repo: Dict, key: str,
+                         expected: bool) -> None:
+        """Tests the `has_license` method."""
+        gh_org_client = GithubOrgClient("google")
+        client_has_licence = gh_org_client.has_license(repo, key)
+        self.assertEqual(client_has_licence, expected)
 ######################################
 
 
