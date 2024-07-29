@@ -46,7 +46,7 @@ class TestGetJson(TestCase):
 
     @parameterized.expand([("http://example.com", {"payload": True}),
                           ("http://holberton.io", {"payload": False})])
-    def test_access(self, url, payload):
+    def test_get_json(self, url, payload):
         """
         Assert the access token is called on the server .
 
