@@ -20,9 +20,9 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_org(self, org):
         with patch.object(GithubOrgClient, "org") as GithubOrgClient_org:
             GithubOrgClient_org.return_value = {
-                'message': ' Found',
+                'message': 'mock_message',
                 'documentation_url': 'https://docs.github.com/rest/orgs/orgs#get-an-organization',
-                'status': '405'}
+                'status': '200'}
 
             GithubOrgClient(org).org()
             GithubOrgClient_org.assert_called_once()
