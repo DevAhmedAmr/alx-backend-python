@@ -6,7 +6,6 @@ from typing import Dict
 
 from parameterized import parameterized, parameterized_class
 from requests import HTTPError
-from unittest.mock import patch, PropertyMock, Mock
 
 from client import (
     GithubOrgClient
@@ -30,10 +29,13 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @parameterized.expand([("google",), ("abc",)])
     def test_public_repos_url(self, payload):
-        with patch('client.GithubOrgClient.org',
-                   new_callable=PropertyMock) as mock:
-            payload = {"repos_url": "World"}
-            mock.return_value = payload
-            test_class = GithubOrgClient('test')
-            result = test_class._public_repos_url
-            self.assertEqual(result, payload["repos_url"])
+        with patch.object(GithubOrgClient, "_public_repos_url") as public_repos_url:
+            public_repos_url.return_value = f"https://api.github.com/orgs/{payload}"\
+                ""
+
+            self.assertEqual(
+                f"https://api.github.com/orgs/{payload}",
+                GithubOrgClient(payload)._public_repos_url()
+
+            )
+            public_repos_url.assert_called()
