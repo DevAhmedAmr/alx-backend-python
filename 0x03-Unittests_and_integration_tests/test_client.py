@@ -38,3 +38,4 @@ class TestGithubOrgClient(unittest.TestCase):
                 GithubOrgClient(payload)._public_repos_url()
 
             )
+            public_repos_url.assert_called()
