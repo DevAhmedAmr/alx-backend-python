@@ -4,6 +4,9 @@ from utils import access_nested_map
 from unittest import TestCase
 from parameterized import parameterized, parameterized_class
 parameterized.expand
+from utils import get_json
+import unittest.mock as mock
+import utils
 
 
 class TestAccessNestedMap(TestCase):
@@ -37,3 +40,21 @@ class TestAccessNestedMap(TestCase):
             path ([list]): path of the info
         """
         self.assertRaises(KeyError, access_nested_map, dictionary, path,)
+
+
+class TestGetJson(TestCase):
+
+    @parameterized.expand([("http://example.com", {"payload": True}),
+                          ("http://holberton.io", {"payload": False})])
+    def test_access(self, url, payload):
+        """
+        Assert the access token is called on the server .
+
+        Args:
+            url ([str])
+            payload ([dict])
+        """
+        with mock.patch("utils.get_json") as mock_class:
+            get_json = mock_class(url, payload)
+            get_json = mock_class.return_value = payload
+            mock_class.assert_called_with(url, payload)
