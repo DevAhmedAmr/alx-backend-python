@@ -12,6 +12,7 @@ from client import (
 )
 from fixtures import TEST_PAYLOAD
 from unittest.mock import patch
+import utils
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -40,5 +41,24 @@ class TestGithubOrgClient(unittest.TestCase):
             )
             public_repos_url.assert_called()
 
-    def test_public_repos(self):
-        GithubOrgClient("google").public_repos()
+    @patch.object(utils, "get_json")
+    def test_public_repos(self, get_json):
+        get_json.return_value = {"mocked_payload", "mocked_value"}
+        with patch.object(GithubOrgClient, "public_repos") as public_repos_url:
+            public_repos_url.return_value = {
+                'truth', 'ruby-openid-apps-discovery', 'autoparse',
+                'anvil-build', 'googletv-android-samples', 'ChannelPlate',
+                'GL-Shader-Validator', 'qpp', 'CSP-Validator', 'embed-dart-vm',
+                'module-server', 'cxx-std-draft', 'filesystem-proposal', 'libcxx',
+                'tracing-framework', 'namebench', 'devtoolsExtended', 'sirius',
+                'testRunner', 'crx2app', 'episodes.dart', 'cpp-netlib', 'dagger',
+                'ios-webkit-debug-proxy', 'google.github.io', 'kratu', 'build-debian-cloud',
+                'traceur-compiler', 'firmata.py', 'vector_math.dart',
+            }
+
+            client = GithubOrgClient("google")
+            self.assertIsNotNone(client.public_repos())
+            self.assertIsInstance(client.public_repos(), set)
+            utils.get_json("test")
+            public_repos_url.assert_called()
+            get_json.assert_called_once()
